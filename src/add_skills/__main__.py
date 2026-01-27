@@ -1,9 +1,11 @@
 """Entry point for add-skills CLI."""
 
+from .cli import run
+
 
 def main() -> None:
     """Main entry point."""
-    print("add-skills - Coming soon")
+    run()
 
 
 if __name__ == "__main__":

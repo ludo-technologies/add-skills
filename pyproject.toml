@@ -37,7 +37,12 @@ classifiers = [
     "Typing :: Typed",
 ]
 requires-python = ">=3.9"
-dependencies = []
+dependencies = [
+    "typer>=0.9.0",
+    "rich>=10.0.0",
+    "python-frontmatter>=1.0.0",
+    "GitPython>=3.1.0",
+]
 
 [project.optional-dependencies]
 dev = [
@@ -54,9 +59,8 @@ Homepage = "https://github.com/ludo-technologies/add-skills"
 Repository = "https://github.com/ludo-technologies/add-skills"
 Issues = "https://github.com/ludo-technologies/add-skills/issues"
 
-[tool.setuptools]
-packages = ["add_skills"]
-package-dir = {"" = "src"}
+[tool.setuptools.packages.find]
+where = ["src"]
 
 [tool.setuptools_scm]
 # Default configuration - gets version from git tags
