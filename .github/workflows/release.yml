@@ -61,7 +61,7 @@ jobs:
       shell: bash
 
     - name: Test CLI
-      run: add-skills
+      run: add-skills --help
       shell: bash
 
   publish-pypi:
