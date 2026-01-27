@@ -58,13 +58,13 @@ def add(
         help="Skip confirmation prompt",
     ),
 ) -> None:
-    """Add skills from a source.
+    """Install skills from a source.
 
     Examples:
-        add-skills add ./my-skills
-        add-skills add vercel-labs/skills
-        add-skills add https://github.com/owner/repo
-        add-skills add owner/repo -g -a cursor
+        add-skills ./my-skills
+        add-skills vercel-labs/skills
+        add-skills https://github.com/owner/repo
+        add-skills owner/repo -g -a cursor
     """
     # Validate agent
     try:
