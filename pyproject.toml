@@ -9,10 +9,10 @@ description = "A tool for managing Claude Code skills"
 readme = "README.md"
 license = {file = "LICENSE"}
 authors = [
-    {name = "DaisukeYoda", email = "daisukeyoda@users.noreply.github.com"}
+    {name = "Ludo Technologies LLC", email = "contact@ludo-tech.org"}
 ]
 maintainers = [
-    {name = "DaisukeYoda", email = "daisukeyoda@users.noreply.github.com"}
+    {name = "Ludo Technologies LLC", email = "contact@ludo-tech.org"}
 ]
 keywords = [
     "claude",
