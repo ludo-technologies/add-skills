@@ -6,18 +6,18 @@ A CLI tool for managing AI coding agent skills. Install skills from local paths 
 
 ```bash
 # No installation required (recommended)
-uvx add-skills vercel-labs/skills
+uvx add-skills ludo-technologies/python-best-practices
 
 # Or install globally
-uv pip install add-skills
-pip install add-skills
+uv tool install add-skills
+pipx install add-skills
 ```
 
 ## Usage
 
 ```bash
 # Add skills from GitHub (short form)
-uvx add-skills vercel-labs/skills
+uvx add-skills ludo-technologies/python-best-practices
 
 # Add skills from a local directory
 uvx add-skills ./my-skills
@@ -26,19 +26,19 @@ uvx add-skills ./my-skills
 uvx add-skills https://github.com/owner/repo
 
 # List available skills without installing
-uvx add-skills vercel-labs/skills --list
+uvx add-skills ludo-technologies/python-best-practices --list
 
 # Install globally (default: local to project)
-uvx add-skills vercel-labs/skills --global
+uvx add-skills ludo-technologies/python-best-practices --global
 
 # Install for a specific agent
-uvx add-skills vercel-labs/skills --global --agent cursor
+uvx add-skills ludo-technologies/python-best-practices --global --agent cursor
 
 # Skip confirmation prompt
-uvx add-skills vercel-labs/skills --yes
+uvx add-skills ludo-technologies/python-best-practices --yes
 
 # Install a specific skill by name
-uvx add-skills vercel-labs/skills --skill find-skills
+uvx add-skills ludo-technologies/python-best-practices --skill coding-standards
 ```
 
 ## Options
