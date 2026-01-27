@@ -1,0 +1,62 @@
+[build-system]
+requires = ["setuptools>=64", "setuptools_scm>=8", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "add-skills"
+dynamic = ["version"]
+description = "A tool for managing Claude Code skills"
+readme = "README.md"
+license = {file = "LICENSE"}
+authors = [
+    {name = "DaisukeYoda", email = "daisukeyoda@users.noreply.github.com"}
+]
+maintainers = [
+    {name = "DaisukeYoda", email = "daisukeyoda@users.noreply.github.com"}
+]
+keywords = [
+    "claude",
+    "claude-code",
+    "skills",
+    "cli",
+    "automation"
+]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Environment :: Console",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+    "Typing :: Typed",
+]
+requires-python = ">=3.9"
+dependencies = []
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=6.0",
+    "build>=0.7.0",
+    "twine>=3.0.0",
+]
+
+[project.scripts]
+add-skills = "add_skills.__main__:main"
+
+[project.urls]
+Homepage = "https://github.com/ludo-technologies/add-skills"
+Repository = "https://github.com/ludo-technologies/add-skills"
+Issues = "https://github.com/ludo-technologies/add-skills/issues"
+
+[tool.setuptools]
+packages = ["add_skills"]
+package-dir = {"" = "src"}
+
+[tool.setuptools_scm]
+# Default configuration - gets version from git tags

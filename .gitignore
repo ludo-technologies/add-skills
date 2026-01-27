@@ -1,0 +1,50 @@
+# Build output
+/dist/
+/build/
+*.egg-info/
+
+# IDE specific files
+.idea/
+*.swp
+*.swo
+*~
+.vscode/
+*.iml
+
+# OS specific files
+.DS_Store
+Thumbs.db
+
+# Test coverage
+coverage.txt
+coverage.html
+*.prof
+
+# Local Environment & config files
+.env
+.env.local
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+.pytest_cache/
+.mypy_cache/
+
+# Python virtual environments
+*_env/
+venv/
+.venv/
+env/
+
+# Temporary files
+*.tmp
+*.bak
+*.log
+
+# Claude Code setting
+.claude/
+
+# Internal documentation (sensitive/private)
+AGENTS.md
+CLAUDE.md
