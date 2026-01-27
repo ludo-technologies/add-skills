@@ -25,13 +25,14 @@ class AgentConfig:
     """Configuration for an AI agent."""
 
     name: str
-    skills_dir: Path
-    description: str = ""
+    display_name: str
+    project_skills_dir: str  # Relative path for project-local installs
+    global_skills_dir: Path  # Absolute path for global installs
 
     @property
-    def skills_path(self) -> Path:
-        """Return the expanded skills directory path."""
-        return Path(self.skills_dir).expanduser()
+    def global_skills_path(self) -> Path:
+        """Return the expanded global skills directory path."""
+        return Path(self.global_skills_dir).expanduser()
 
 
 @dataclass

@@ -34,9 +34,9 @@ def get_install_path(
     if scope == InstallScope.LOCAL:
         if project_dir is None:
             project_dir = Path.cwd()
-        base_dir = project_dir / ".skills"
+        base_dir = project_dir / agent.project_skills_dir
     else:
-        base_dir = agent.skills_path
+        base_dir = agent.global_skills_path
 
     return base_dir / skill.name
 
@@ -110,9 +110,9 @@ def uninstall_skill(
     if scope == InstallScope.LOCAL:
         if project_dir is None:
             project_dir = Path.cwd()
-        install_path = project_dir / ".skills" / skill_name
+        install_path = project_dir / agent.project_skills_dir / skill_name
     else:
-        install_path = agent.skills_path / skill_name
+        install_path = agent.global_skills_path / skill_name
 
     if not install_path.exists() and not install_path.is_symlink():
         return False

@@ -34,7 +34,7 @@ def add(
         help="Install globally (default: local to project)",
     ),
     agent: str = typer.Option(
-        "claude",
+        "claude-code",
         "--agent",
         "-a",
         help=f"Target agent ({', '.join(AGENTS.keys())})",
@@ -124,7 +124,7 @@ def add(
         if not yes:
             console.print()
             confirm = typer.confirm(
-                f"Install {len(skills)} skill(s) {scope_label} for {agent_config.name}?"
+                f"Install {len(skills)} skill(s) {scope_label} for {agent_config.display_name}?"
             )
             if not confirm:
                 console.print("[yellow]Installation cancelled.[/yellow]")

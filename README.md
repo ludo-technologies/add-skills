@@ -6,7 +6,7 @@ A CLI tool for managing AI coding agent skills. Install skills from local paths 
 
 ```bash
 # No installation required (recommended)
-uvx add-skills add vercel-labs/skills
+uvx add-skills vercel-labs/skills
 
 # Or install globally
 uv pip install add-skills
@@ -46,14 +46,14 @@ uvx add-skills vercel-labs/skills --skill find-skills
 | Option | Short | Description |
 |--------|-------|-------------|
 | `--global` | `-g` | Install globally instead of locally to project |
-| `--agent` | `-a` | Target agent (default: `claude`) |
+| `--agent` | `-a` | Target agent (default: `claude-code`) |
 | `--skill` | `-s` | Install specific skill by name |
 | `--list` | `-l` | List available skills without installing |
 | `--yes` | `-y` | Skip confirmation prompt |
 
 ## Supported Agents
 
-claude, cursor, windsurf, cline, roo, continue, aider, copilot, amazon-q, tabnine, cody, replit, jetbrains, codium, supermaven, codeium, devin, openhands, swe-agent, autogpt, gpt-engineer, mentat, sweep, codegen, aide, pear, void, zed, qodo, trae, kilo, augment
+amp, antigravity, claude-code, clawdbot, cline, codebuddy, codex, command-code, continue, crush, cursor, droid, gemini-cli, github-copilot, goose, kilo, kiro-cli, mcpjam, mux, neovate, opencode, openhands, pi, qoder, qwen-code, roo, trae, windsurf, zencoder
 
 ## Creating Skills
 
@@ -80,9 +80,9 @@ Instructions for the AI agent...
 3. Discovers all `SKILL.md` files in the source
 4. Creates symlinks in the target agent's skills directory
 
-**Installation paths:**
-- Local: `./.skills/<skill-name>`
-- Global: `~/.claude/skills/<skill-name>` (or respective agent directory)
+**Installation paths (example for claude-code):**
+- Local: `.claude/skills/<skill-name>`
+- Global: `~/.claude/skills/<skill-name>`
 
 ## License
 
