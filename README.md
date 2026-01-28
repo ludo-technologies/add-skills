@@ -4,11 +4,13 @@ A CLI tool for managing AI coding agent skills. Install skills from local paths 
 
 ## Installation
 
+No installation required (recommended)
 ```bash
-# No installation required (recommended)
 uvx add-skills ludo-technologies/python-best-practices
+```
 
-# Or install globally
+Or install globally
+```bash
 uv tool install add-skills
 pipx install add-skills
 ```
