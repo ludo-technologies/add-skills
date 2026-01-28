@@ -1,5 +1,6 @@
 """Skill installation logic."""
 
+import shutil
 from pathlib import Path
 
 from ..models import AgentConfig, InstallScope, Skill
@@ -49,7 +50,7 @@ def install_skill(
 ) -> Path:
     """Install a skill for an agent.
 
-    Creates a symlink to the skill in the agent's skills directory.
+    Copies the skill directory to the agent's skills directory.
 
     Args:
         skill: The skill to install.
@@ -58,10 +59,10 @@ def install_skill(
         project_dir: Project directory for local scope.
 
     Returns:
-        Path to the installed skill (symlink location).
+        Path to the installed skill.
 
     Raises:
-        InstallError: If installation fails (FailFast - no fallback).
+        InstallError: If installation fails.
     """
     install_path = get_install_path(skill, agent, scope, project_dir)
 
@@ -70,19 +71,19 @@ def install_skill(
 
     # Check if already installed
     if install_path.exists() or install_path.is_symlink():
-        if install_path.is_symlink() and install_path.resolve() == skill.path:
-            # Already correctly linked
-            return install_path
         raise InstallError(
             f"Skill already exists at {install_path}. "
             "Remove it first or use a different name."
         )
 
-    # Create symlink (FailFast - no fallback to copy)
+    # Copy skill directory
     try:
-        install_path.symlink_to(skill.path)
+        if skill.path.is_dir():
+            shutil.copytree(skill.path, install_path)
+        else:
+            shutil.copy2(skill.path, install_path)
     except OSError as e:
-        raise InstallError(f"Failed to create symlink: {e}") from e
+        raise InstallError(f"Failed to copy skill: {e}") from e
 
     return install_path
 
@@ -120,12 +121,10 @@ def uninstall_skill(
     try:
         if install_path.is_symlink():
             install_path.unlink()
+        elif install_path.is_dir():
+            shutil.rmtree(install_path)
         else:
-            # If it's a directory (not a symlink), refuse to delete
-            raise InstallError(
-                f"Skill at {install_path} is not a symlink. "
-                "Manual removal required for safety."
-            )
+            install_path.unlink()
     except OSError as e:
         raise InstallError(f"Failed to remove skill: {e}") from e
 
