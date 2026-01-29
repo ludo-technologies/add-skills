@@ -65,9 +65,6 @@ Create a `SKILL.md` file in your skill directory:
 ---
 name: my-skill
 description: A brief description of what this skill does
-globs:
-  - "**/*.ts"
-  - "**/*.tsx"
 ---
 
 # My Skill
@@ -80,7 +77,7 @@ Instructions for the AI agent...
 1. Parses the source (local path, `owner/repo`, or full URL)
 2. For remote sources, performs a shallow clone
 3. Discovers all `SKILL.md` files in the source
-4. Creates symlinks in the target agent's skills directory
+4. Copies skill files to the target agent's skills directory
 
 **Installation paths (example for claude-code):**
 - Local: `.claude/skills/<skill-name>`
