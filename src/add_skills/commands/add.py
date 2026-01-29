@@ -3,24 +3,18 @@
 import shutil
 import tempfile
 from pathlib import Path
-from typing import NoReturn
 
 import typer
 from rich.console import Console
 from rich.table import Table
 
+from add_skills.cli_utils import exit_with_error
 from add_skills.core import AGENTS, get_agent
 from add_skills.core.source_parser import parse_source
 from add_skills.exceptions import InstallError, SourceParseError
 from add_skills.models import InstallScope, SourceType
 from add_skills.repositories import clone_repo, discover_skills
 from add_skills.services import install_skill
-
-
-def _exit_with_error(console: Console, message: str) -> NoReturn:
-    """Print error message and exit with code 1."""
-    console.print(f"[red]Error:[/red] {message}")
-    raise typer.Exit(code=1)
 
 
 def add(
@@ -74,13 +68,13 @@ def add(
     try:
         agent_config = get_agent(agent)
     except KeyError as e:
-        _exit_with_error(console, str(e))
+        exit_with_error(console, str(e))
 
     # Parse source
     try:
         skill_source = parse_source(source)
     except SourceParseError as e:
-        _exit_with_error(console, str(e))
+        exit_with_error(console, str(e))
 
     # Get skill directory
     skill_dir: Path
@@ -88,7 +82,8 @@ def add(
 
     try:
         if skill_source.source_type == SourceType.LOCAL:
-            assert skill_source.path is not None
+            if skill_source.path is None:
+                exit_with_error(console, "Local source path is None")
             skill_dir = skill_source.path
         else:
             # Clone remote repository
@@ -97,7 +92,7 @@ def add(
             try:
                 skill_dir = clone_repo(skill_source, temp_dir)
             except Exception as e:
-                _exit_with_error(console, f"cloning repository: {e}")
+                exit_with_error(console, f"cloning repository: {e}")
 
         # Discover skills
         skills = discover_skills(skill_dir)

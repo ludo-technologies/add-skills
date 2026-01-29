@@ -1,20 +1,13 @@
 """Find command for searching skills in the registry."""
 
-from typing import NoReturn
-
 import typer
 from rich.console import Console
 from rich.table import Table
 
+from add_skills.cli_utils import exit_with_error
 from add_skills.exceptions import RegistryFetchError, RegistryParseError
 from add_skills.repositories import fetch_registry
 from add_skills.services import search_registry
-
-
-def _exit_with_error(console: Console, message: str) -> NoReturn:
-    """Print error message and exit with code 1."""
-    console.print(f"[red]Error:[/red] {message}")
-    raise typer.Exit(code=1)
 
 
 def find(
@@ -33,9 +26,9 @@ def find(
     try:
         entries = fetch_registry()
     except RegistryFetchError as e:
-        _exit_with_error(console, f"fetching registry: {e}")
+        exit_with_error(console, f"fetching registry: {e}")
     except RegistryParseError as e:
-        _exit_with_error(console, f"parsing registry: {e}")
+        exit_with_error(console, f"parsing registry: {e}")
 
     results = search_registry(entries, keyword)
 
