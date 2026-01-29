@@ -1,6 +1,6 @@
 """Data models for add-skills."""
 
-from .types import (
+from add_skills.models.types import (
     AgentConfig,
     InstallScope,
     RegistryEntry,

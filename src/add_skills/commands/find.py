@@ -1,18 +1,25 @@
 """Find command for searching skills in the registry."""
 
-from typing import Optional
+from typing import NoReturn
 
 import typer
 from rich.console import Console
 from rich.table import Table
 
-from ..exceptions import RegistryFetchError, RegistryParseError
-from ..repositories import fetch_registry
-from ..services import search_registry
+from add_skills.exceptions import RegistryFetchError, RegistryParseError
+from add_skills.repositories import fetch_registry
+from add_skills.services import search_registry
+
+
+def _exit_with_error(console: Console, message: str) -> NoReturn:
+    """Print error message and exit with code 1."""
+    console.print(f"[red]Error:[/red] {message}")
+    raise typer.Exit(code=1)
 
 
 def find(
-    keyword: Optional[str] = typer.Argument(
+    ctx: typer.Context,
+    keyword: str | None = typer.Argument(
         None,
         help="Keyword to search for in skill names, descriptions, and tags.",
     ),
@@ -21,16 +28,14 @@ def find(
 
     If no keyword is provided, lists all available skills.
     """
-    console = Console()
+    console: Console = ctx.obj
 
     try:
         entries = fetch_registry()
     except RegistryFetchError as e:
-        console.print(f"[red]Error fetching registry:[/red] {e}")
-        raise typer.Exit(1)
+        _exit_with_error(console, f"fetching registry: {e}")
     except RegistryParseError as e:
-        console.print(f"[red]Error parsing registry:[/red] {e}")
-        raise typer.Exit(1)
+        _exit_with_error(console, f"parsing registry: {e}")
 
     results = search_registry(entries, keyword)
 

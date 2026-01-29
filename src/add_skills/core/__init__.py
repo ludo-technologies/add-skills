@@ -3,10 +3,15 @@
 This module re-exports from repositories and services for backward compatibility.
 """
 
-from ..repositories import clone_repo, discover_skills, fetch_registry, parse_skill
-from ..services import install_skill, search_registry
-from .agents import AGENTS, get_agent, get_all_agents
-from .source_parser import parse_source
+from add_skills.core.agents import AGENTS, get_agent, get_all_agents
+from add_skills.core.source_parser import parse_source
+from add_skills.repositories import (
+    clone_repo,
+    discover_skills,
+    fetch_registry,
+    parse_skill,
+)
+from add_skills.services import install_skill, search_registry
 
 __all__ = [
     "AGENTS",

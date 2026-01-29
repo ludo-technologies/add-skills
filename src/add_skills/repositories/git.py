@@ -4,9 +4,10 @@ import tempfile
 from pathlib import Path
 
 from git import Repo
+from git.exc import GitCommandError
 
-from ..exceptions import GitError
-from ..models import SkillSource
+from add_skills.exceptions import GitError
+from add_skills.models import SkillSource
 
 
 def clone_repo(source: SkillSource, target_dir: Path | None = None) -> Path:
@@ -39,7 +40,7 @@ def clone_repo(source: SkillSource, target_dir: Path | None = None) -> Path:
 
     try:
         Repo.clone_from(source.clone_url, target_dir, **clone_kwargs)
-    except Exception as e:
+    except GitCommandError as e:
         raise GitError(f"Failed to clone repository: {e}") from e
 
     # If there's a subpath, return that directory

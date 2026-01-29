@@ -3,7 +3,8 @@
 import re
 from pathlib import Path
 
-from ..models import SkillSource, SourceType
+from add_skills.exceptions import SourceParseError
+from add_skills.models import SkillSource, SourceType
 
 # Patterns for GitHub URLs
 GITHUB_PATTERNS = [
@@ -44,7 +45,7 @@ def parse_source(source: str) -> SkillSource:
         SkillSource with parsed information.
 
     Raises:
-        ValueError: If source format is invalid.
+        SourceParseError: If source format is invalid.
     """
     source = source.strip()
 
@@ -52,7 +53,7 @@ def parse_source(source: str) -> SkillSource:
     path = Path(source).expanduser()
     if path.exists() or source.startswith((".", "/", "~")):
         if not path.exists():
-            raise ValueError(f"Local path does not exist: {source}")
+            raise SourceParseError(f"Local path does not exist: {source}")
         return SkillSource(
             source_type=SourceType.LOCAL,
             path=path.resolve(),
@@ -87,7 +88,7 @@ def parse_source(source: str) -> SkillSource:
                 original=source,
             )
 
-    raise ValueError(
+    raise SourceParseError(
         f"Invalid source format: {source}. "
         "Expected: local path, owner/repo, or full GitHub/GitLab URL."
     )

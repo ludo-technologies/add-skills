@@ -1,8 +1,8 @@
 """Repositories for data access."""
 
-from .filesystem import discover_skills, parse_skill
-from .git import clone_repo
-from .registry import fetch_registry
+from add_skills.repositories.filesystem import discover_skills, parse_skill
+from add_skills.repositories.git import clone_repo
+from add_skills.repositories.registry import fetch_registry
 
 __all__ = [
     "clone_repo",

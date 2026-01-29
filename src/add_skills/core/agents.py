@@ -2,7 +2,7 @@
 
 from pathlib import Path
 
-from ..models import AgentConfig
+from add_skills.models import AgentConfig
 
 # Agent configurations matching vercel-labs/skills
 AGENTS: dict[str, AgentConfig] = {
