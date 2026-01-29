@@ -7,7 +7,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-## [0.1.1] - 2026-01-29
+## [0.1.2] - 2026-01-29
 
 ### Changed
 
@@ -55,8 +55,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - `--yes` option to skip confirmation prompts
 - Support for 30+ AI coding agents
 
-[Unreleased]: https://github.com/ludo-technologies/add-skills/compare/v0.1.1...HEAD
-[0.1.1]: https://github.com/ludo-technologies/add-skills/compare/v0.1.0...v0.1.1
+[Unreleased]: https://github.com/ludo-technologies/add-skills/compare/v0.1.2...HEAD
+[0.1.2]: https://github.com/ludo-technologies/add-skills/compare/v0.1.0...v0.1.2
 [0.1.0]: https://github.com/ludo-technologies/add-skills/compare/v0.0.4...v0.1.0
 [0.0.4]: https://github.com/ludo-technologies/add-skills/compare/v0.0.3...v0.0.4
 [0.0.3]: https://github.com/ludo-technologies/add-skills/releases/tag/v0.0.3
