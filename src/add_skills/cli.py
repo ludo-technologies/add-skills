@@ -7,10 +7,9 @@ import typer
 from rich.console import Console
 
 from add_skills.commands import add_skills, find
-from add_skills.core import AGENTS
 
 # Separate app for the "find" subcommand
-find_app = typer.Typer()
+find_app = typer.Typer(add_completion=False)
 
 
 @find_app.command()
@@ -24,10 +23,21 @@ def find_command(
 
 
 # Main app for adding skills
-main_app = typer.Typer()
+main_app = typer.Typer(
+    add_completion=False,
+    no_args_is_help=True,
+    help="A tool for managing AI agent Skills.",
+    epilog="Commands:\n  find  Search for Skills in the curated registry",
+)
 
 
-@main_app.command()
+@main_app.command(
+    help="Install Skills from a source.\n\n"
+    "Examples:\n"
+    "  add-skills vercel-labs/skills\n"
+    "  add-skills ./my-skills --list\n"
+    "  add-skills owner/repo -g -a cursor",
+)
 def add_command(
     ctx: typer.Context,
     source: str = typer.Argument(..., help="Source (local path, owner/repo, or URL)"),
@@ -37,53 +47,18 @@ def add_command(
     list_only: bool = typer.Option(False, "--list", "-l", help="List without installing"),
     yes: bool = typer.Option(False, "--yes", "-y", help="Skip confirmation"),
 ) -> None:
-    """Install Skills from a source."""
     ctx.obj = Console()
     add_skills(ctx, source, global_install, agent, skill_name, list_only, yes)
-
-
-def _show_help() -> None:
-    """Show help message."""
-    console = Console()
-    agents_str = ", ".join(list(AGENTS.keys())[:5]) + ", ..."
-    console.print(
-        "[bold]Usage:[/bold] add-skills [OPTIONS] SOURCE\n"
-        "       add-skills find [KEYWORD]\n\n"
-        "A tool for managing AI agent Skills.\n\n"
-        "[bold]Examples:[/bold]\n"
-        "  add-skills vercel-labs/skills\n"
-        "  add-skills ./my-skills --list\n"
-        "  add-skills owner/repo -g -a cursor\n"
-        "  add-skills find python\n\n"
-        "[bold]Options:[/bold]\n"
-        "  -g, --global    Install globally\n"
-        "  -a, --agent     Target agent (" + agents_str + ")\n"
-        "  -s, --skill     Install specific skill by name\n"
-        "  -l, --list      List available Skills without installing\n"
-        "  -y, --yes       Skip confirmation prompt\n"
-        "  --help          Show this message"
-    )
 
 
 def run() -> None:
     """Run the CLI application."""
     args = sys.argv[1:]
 
-    # No args -> show help
-    if not args:
-        _show_help()
+    # "find" subcommand: delegate to find_app with remaining args
+    if args and args[0] == "find":
+        find_app(args[1:], standalone_mode=True)
         return
 
-    # Help flag
-    if args[0] in ("--help", "-h"):
-        _show_help()
-        return
-
-    # "find" subcommand
-    if args[0] == "find":
-        sys.argv = [sys.argv[0]] + args[1:]  # Remove "find" from args
-        find_app()
-        return
-
-    # Default: add skills
+    # Default: add skills (typer handles --help and no-args)
     main_app()
