@@ -1,12 +1,12 @@
 """CLI application for add-skills."""
 
 import sys
-from typing import Optional
 
 import typer
 from rich.console import Console
 
 from add_skills.commands import add_skills, find
+
 
 def _create_console() -> Console:
     """Factory for creating Console instance. Override in tests."""
@@ -20,7 +20,7 @@ find_app = typer.Typer(add_completion=False)
 @find_app.callback(invoke_without_command=True)
 def find_callback(
     ctx: typer.Context,
-    keyword: Optional[str] = typer.Argument(None),
+    keyword: str | None = typer.Argument(None),
 ) -> None:
     """Search for Skills in the curated registry."""
     ctx.obj = _create_console()
@@ -43,7 +43,7 @@ def add_command(
     source: str = typer.Argument(..., help="Source (local path, owner/repo, or URL)"),
     global_install: bool = typer.Option(False, "--global", "-g", help="Install globally"),
     agent: str = typer.Option("claude-code", "--agent", "-a", help="Target agent"),
-    skill_name: Optional[str] = typer.Option(None, "--skill", "-s", help="Install specific skill"),
+    skill_name: str | None = typer.Option(None, "--skill", "-s", help="Install specific skill"),
     list_only: bool = typer.Option(False, "--list", "-l", help="List without installing"),
     yes: bool = typer.Option(False, "--yes", "-y", help="Skip confirmation"),
 ) -> None:

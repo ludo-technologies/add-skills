@@ -3,7 +3,6 @@
 import shutil
 import tempfile
 from pathlib import Path
-from typing import Optional
 
 import typer
 from rich.console import Console
@@ -23,7 +22,7 @@ def add_skills(
     source: str,
     global_install: bool = False,
     agent: str = "claude-code",
-    skill_name: Optional[str] = None,
+    skill_name: str | None = None,
     list_only: bool = False,
     yes: bool = False,
 ) -> None:
