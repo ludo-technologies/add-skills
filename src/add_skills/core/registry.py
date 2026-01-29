@@ -54,20 +54,22 @@ def fetch_registry(url: str = REGISTRY_URL) -> list[RegistryEntry]:
         raise RegistryParseError("Registry must be a JSON array")
 
     result = []
-    for entry in entries:
+    for i, entry in enumerate(entries):
         if not isinstance(entry, dict):
-            continue
-        try:
-            result.append(
-                RegistryEntry(
-                    name=entry["name"],
-                    repo=entry["repo"],
-                    description=entry.get("description", ""),
-                    tags=entry.get("tags", []),
-                )
+            raise RegistryParseError(f"Entry {i} must be an object, got {type(entry).__name__}")
+
+        missing = [key for key in ("name", "repo") if key not in entry]
+        if missing:
+            raise RegistryParseError(f"Entry {i} missing required fields: {', '.join(missing)}")
+
+        result.append(
+            RegistryEntry(
+                name=entry["name"],
+                repo=entry["repo"],
+                description=entry.get("description", ""),
+                tags=entry.get("tags", []),
             )
-        except KeyError:
-            continue
+        )
 
     return result
 
