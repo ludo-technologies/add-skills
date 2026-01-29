@@ -8,16 +8,12 @@ import typer
 from rich.console import Console
 from rich.table import Table
 
-from ..core import (
-    AGENTS,
-    clone_repo,
-    discover_skills,
-    get_agent,
-    install_skill,
-    parse_source,
-)
-from ..core.installer import InstallError
+from ..core import AGENTS, get_agent
+from ..core.source_parser import parse_source
+from ..exceptions import InstallError
 from ..models import InstallScope, SourceType
+from ..repositories import clone_repo, discover_skills
+from ..services import install_skill
 
 console = Console()
 
