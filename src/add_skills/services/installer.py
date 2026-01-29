@@ -3,13 +3,8 @@
 import shutil
 from pathlib import Path
 
+from ..exceptions import InstallError
 from ..models import AgentConfig, InstallScope, Skill
-
-
-class InstallError(Exception):
-    """Installation error."""
-
-    pass
 
 
 def get_install_path(

@@ -1,4 +1,4 @@
-"""Skill discovery and parsing."""
+"""Filesystem operations for skill discovery."""
 
 from pathlib import Path
 

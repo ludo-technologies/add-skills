@@ -6,7 +6,9 @@ import typer
 from rich.console import Console
 from rich.table import Table
 
-from ..core import RegistryFetchError, RegistryParseError, fetch_registry, search_registry
+from ..exceptions import RegistryFetchError, RegistryParseError
+from ..repositories import fetch_registry
+from ..services import search_registry
 
 
 def find(

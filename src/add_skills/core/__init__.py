@@ -1,21 +1,15 @@
-"""Core functionality for add-skills."""
+"""Core functionality for add-skills.
 
+This module re-exports from repositories and services for backward compatibility.
+"""
+
+from ..repositories import clone_repo, discover_skills, fetch_registry, parse_skill
+from ..services import install_skill, search_registry
 from .agents import AGENTS, get_agent, get_all_agents
-from .git import clone_repo
-from .installer import install_skill
-from .registry import (
-    RegistryFetchError,
-    RegistryParseError,
-    fetch_registry,
-    search_registry,
-)
-from .skills import discover_skills, parse_skill
 from .source_parser import parse_source
 
 __all__ = [
     "AGENTS",
-    "RegistryFetchError",
-    "RegistryParseError",
     "clone_repo",
     "discover_skills",
     "fetch_registry",
