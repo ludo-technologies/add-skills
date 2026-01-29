@@ -2,9 +2,13 @@
 
 import typer
 
-from .commands.add import add
+from .commands import add, find
+
+app = typer.Typer(name="add-skills", no_args_is_help=True)
+app.command()(add)
+app.command()(find)
 
 
 def run() -> None:
     """Run the CLI application."""
-    typer.run(add)
+    app()

@@ -3,6 +3,7 @@
 from .types import (
     AgentConfig,
     InstallScope,
+    RegistryEntry,
     Skill,
     SkillSource,
     SourceType,
@@ -11,6 +12,7 @@ from .types import (
 __all__ = [
     "AgentConfig",
     "InstallScope",
+    "RegistryEntry",
     "Skill",
     "SkillSource",
     "SourceType",
