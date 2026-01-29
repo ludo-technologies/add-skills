@@ -21,7 +21,7 @@ def add(
     ctx: typer.Context,
     source: str = typer.Argument(
         ...,
-        help="Source to add skills from (local path, owner/repo, or URL)",
+        help="Source to add Skills from (local path, owner/repo, or URL)",
     ),
     global_install: bool = typer.Option(
         False,
@@ -45,7 +45,7 @@ def add(
         False,
         "--list",
         "-l",
-        help="List available skills without installing",
+        help="List available Skills without installing",
     ),
     yes: bool = typer.Option(
         False,
@@ -54,7 +54,7 @@ def add(
         help="Skip confirmation prompt",
     ),
 ) -> None:
-    """Install skills from a source.
+    """Install Skills from a source.
 
     Examples:
         add-skills ./my-skills
