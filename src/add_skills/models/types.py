@@ -72,3 +72,22 @@ class Skill:
     def skill_file(self) -> Path:
         """Return the path to SKILL.md."""
         return self.path / "SKILL.md"
+
+
+@dataclass
+class RegistryEntry:
+    """A skill entry in the curated registry."""
+
+    name: str
+    repo: str
+    description: str
+    tags: list[str] = field(default_factory=list)
+
+    def matches(self, keyword: str) -> bool:
+        """Check if this entry matches a search keyword."""
+        keyword_lower = keyword.lower()
+        return (
+            keyword_lower in self.name.lower()
+            or keyword_lower in self.description.lower()
+            or any(keyword_lower in tag.lower() for tag in self.tags)
+        )
