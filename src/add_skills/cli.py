@@ -10,7 +10,7 @@ app = typer.Typer(name="add-skills", no_args_is_help=True)
 
 @app.callback()
 def main(ctx: typer.Context) -> None:
-    """A tool for managing Claude Code skills."""
+    """A tool for managing AI coding agent skills."""
     ctx.obj = Console()
 
 
