@@ -51,13 +51,19 @@ def add_command(
     add_skills(ctx, source, global_install, agent, skill_name, list_only, yes)
 
 
+# Subcommand registry - add new commands here
+SUBCOMMANDS: dict[str, typer.Typer] = {
+    "find": find_app,
+}
+
+
 def run() -> None:
     """Run the CLI application."""
     args = sys.argv[1:]
 
-    # "find" subcommand: delegate to find_app with remaining args
-    if args and args[0] == "find":
-        find_app(args[1:], standalone_mode=True)
+    # Check for subcommands
+    if args and args[0] in SUBCOMMANDS:
+        SUBCOMMANDS[args[0]](args[1:], standalone_mode=True)
         return
 
     # Default: add skills (typer handles --help and no-args)
