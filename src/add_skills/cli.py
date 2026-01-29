@@ -8,6 +8,11 @@ from rich.console import Console
 
 from add_skills.commands import add_skills, find
 
+def _create_console() -> Console:
+    """Factory for creating Console instance. Override in tests."""
+    return Console()
+
+
 # Separate app for the "find" subcommand
 find_app = typer.Typer(add_completion=False)
 
@@ -18,7 +23,7 @@ def find_callback(
     keyword: Optional[str] = typer.Argument(None),
 ) -> None:
     """Search for Skills in the curated registry."""
-    ctx.obj = Console()
+    ctx.obj = _create_console()
     find(ctx, keyword)
 
 
@@ -42,7 +47,7 @@ def add_command(
     list_only: bool = typer.Option(False, "--list", "-l", help="List without installing"),
     yes: bool = typer.Option(False, "--yes", "-y", help="Skip confirmation"),
 ) -> None:
-    ctx.obj = Console()
+    ctx.obj = _create_console()
     add_skills(ctx, source, global_install, agent, skill_name, list_only, yes)
 
 
