@@ -7,6 +7,23 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.1.0] - 2026-01-29
+
+### Added
+
+- `find` command to search skills in the curated registry
+- ruff and pyright for code quality
+
+### Changed
+
+- Refactor to layered architecture with repositories and services
+- Capitalize "Skills" as proper noun in documentation
+
+### Fixed
+
+- Help text to reflect multi-agent support
+- Registry parsing to raise error on malformed entries
+
 ## [0.0.4] - 2026-01-28
 
 ### Changed
@@ -31,6 +48,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - `--yes` option to skip confirmation prompts
 - Support for 30+ AI coding agents
 
-[Unreleased]: https://github.com/ludo-technologies/add-skills/compare/v0.0.4...HEAD
+[Unreleased]: https://github.com/ludo-technologies/add-skills/compare/v0.1.0...HEAD
+[0.1.0]: https://github.com/ludo-technologies/add-skills/compare/v0.0.4...v0.1.0
 [0.0.4]: https://github.com/ludo-technologies/add-skills/compare/v0.0.3...v0.0.4
 [0.0.3]: https://github.com/ludo-technologies/add-skills/releases/tag/v0.0.3
