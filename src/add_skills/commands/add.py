@@ -8,17 +8,17 @@ import typer
 from rich.console import Console
 from rich.table import Table
 
-from ..core import AGENTS, get_agent
-from ..core.source_parser import parse_source
-from ..exceptions import InstallError
-from ..models import InstallScope, SourceType
-from ..repositories import clone_repo, discover_skills
-from ..services import install_skill
-
-console = Console()
+from add_skills.cli_utils import exit_with_error
+from add_skills.core import AGENTS, get_agent
+from add_skills.core.source_parser import parse_source
+from add_skills.exceptions import InstallError, SourceParseError
+from add_skills.models import InstallScope, SourceType
+from add_skills.repositories import clone_repo, discover_skills
+from add_skills.services import install_skill
 
 
 def add(
+    ctx: typer.Context,
     source: str = typer.Argument(
         ...,
         help="Source to add skills from (local path, owner/repo, or URL)",
@@ -62,19 +62,19 @@ def add(
         add-skills https://github.com/owner/repo
         add-skills owner/repo -g -a cursor
     """
+    console: Console = ctx.obj
+
     # Validate agent
     try:
         agent_config = get_agent(agent)
     except KeyError as e:
-        console.print(f"[red]Error:[/red] {e}")
-        raise typer.Exit(code=1)
+        exit_with_error(console, str(e))
 
     # Parse source
     try:
         skill_source = parse_source(source)
-    except ValueError as e:
-        console.print(f"[red]Error:[/red] {e}")
-        raise typer.Exit(code=1)
+    except SourceParseError as e:
+        exit_with_error(console, str(e))
 
     # Get skill directory
     skill_dir: Path
@@ -82,6 +82,8 @@ def add(
 
     try:
         if skill_source.source_type == SourceType.LOCAL:
+            if skill_source.path is None:
+                exit_with_error(console, "Local source path is None")
             skill_dir = skill_source.path
         else:
             # Clone remote repository
@@ -90,8 +92,7 @@ def add(
             try:
                 skill_dir = clone_repo(skill_source, temp_dir)
             except Exception as e:
-                console.print(f"[red]Error cloning repository:[/red] {e}")
-                raise typer.Exit(code=1)
+                exit_with_error(console, f"cloning repository: {e}")
 
         # Discover skills
         skills = discover_skills(skill_dir)
@@ -108,7 +109,7 @@ def add(
                 raise typer.Exit(code=1)
 
         # Display skills
-        _display_skills(skills)
+        _display_skills(console, skills)
 
         if list_only:
             raise typer.Exit(code=0)
@@ -150,7 +151,7 @@ def add(
             shutil.rmtree(temp_dir, ignore_errors=True)
 
 
-def _display_skills(skills: list) -> None:
+def _display_skills(console: Console, skills: list) -> None:
     """Display skills in a table."""
     table = Table(title="Available Skills")
     table.add_column("Name", style="cyan")

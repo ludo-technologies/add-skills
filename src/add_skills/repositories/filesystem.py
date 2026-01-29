@@ -1,12 +1,32 @@
 """Filesystem operations for skill discovery."""
 
 from pathlib import Path
+from typing import Any
 
 import frontmatter
+import yaml
 
-from ..models import Skill
+from add_skills.models import Skill
 
 SKILL_FILENAME = "SKILL.md"
+
+
+def _parse_string(value: Any, default: str = "") -> str:
+    """Parse a value as string."""
+    if value is None:
+        return default
+    return str(value)
+
+
+def _parse_string_list(value: Any) -> list[str]:
+    """Parse a value as list of strings."""
+    if value is None:
+        return []
+    if isinstance(value, str):
+        return [value]
+    if isinstance(value, list):
+        return [str(item) for item in value]
+    return []
 
 
 def discover_skills(directory: Path) -> list[Skill]:
@@ -45,29 +65,16 @@ def parse_skill(skill_dir: Path) -> Skill | None:
         return None
 
     try:
-        post = frontmatter.load(skill_file)
-    except Exception:
+        with open(skill_file, encoding="utf-8") as f:
+            post = frontmatter.load(f)
+    except (OSError, yaml.YAMLError):
         return None
 
-    # Extract metadata from frontmatter
-    name = post.get("name", skill_dir.name)
-    description = post.get("description", "")
-    globs = post.get("globs", [])
-    agents = post.get("agents", [])
-
-    # Ensure globs is a list
-    if isinstance(globs, str):
-        globs = [globs]
-
-    # Ensure agents is a list
-    if isinstance(agents, str):
-        agents = [agents]
-
     return Skill(
-        name=name,
+        name=_parse_string(post.get("name"), skill_dir.name),
         path=skill_dir.resolve(),
-        description=description,
-        globs=globs,
-        agents=agents,
+        description=_parse_string(post.get("description")),
+        globs=_parse_string_list(post.get("globs")),
+        agents=_parse_string_list(post.get("agents")),
         metadata=dict(post.metadata),
     )

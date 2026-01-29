@@ -3,8 +3,8 @@
 import shutil
 from pathlib import Path
 
-from ..exceptions import InstallError
-from ..models import AgentConfig, InstallScope, Skill
+from add_skills.exceptions import InstallError
+from add_skills.models import AgentConfig, InstallScope, Skill
 
 
 def get_install_path(
@@ -19,13 +19,10 @@ def get_install_path(
         skill: The skill to install.
         agent: Target agent configuration.
         scope: Installation scope (local or global).
-        project_dir: Project directory for local scope.
+        project_dir: Project directory for local scope. Defaults to cwd.
 
     Returns:
         Path where the skill should be installed.
-
-    Raises:
-        ValueError: If project_dir is required but not provided.
     """
     if scope == InstallScope.LOCAL:
         if project_dir is None:

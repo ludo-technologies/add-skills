@@ -1,6 +1,6 @@
 """Registry search service."""
 
-from ..models import RegistryEntry
+from add_skills.models import RegistryEntry
 
 
 def search_registry(

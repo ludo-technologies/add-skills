@@ -4,8 +4,8 @@ import json
 import urllib.request
 from urllib.error import HTTPError, URLError
 
-from ..exceptions import RegistryFetchError, RegistryParseError
-from ..models import RegistryEntry
+from add_skills.exceptions import RegistryFetchError, RegistryParseError
+from add_skills.models import RegistryEntry
 
 REGISTRY_URL = "https://raw.githubusercontent.com/ludo-technologies/add-skills/main/registry.json"
 TIMEOUT_SECONDS = 10

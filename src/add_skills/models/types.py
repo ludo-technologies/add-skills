@@ -3,6 +3,7 @@
 from dataclasses import dataclass, field
 from enum import Enum
 from pathlib import Path
+from typing import Any
 
 
 class SourceType(Enum):
@@ -32,7 +33,7 @@ class AgentConfig:
     @property
     def global_skills_path(self) -> Path:
         """Return the expanded global skills directory path."""
-        return Path(self.global_skills_dir).expanduser()
+        return self.global_skills_dir.expanduser()
 
 
 @dataclass
@@ -66,7 +67,7 @@ class Skill:
     description: str = ""
     globs: list[str] = field(default_factory=list)
     agents: list[str] = field(default_factory=list)
-    metadata: dict = field(default_factory=dict)
+    metadata: dict[str, Any] = field(default_factory=dict)
 
     @property
     def skill_file(self) -> Path:
