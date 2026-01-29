@@ -12,8 +12,8 @@ from add_skills.commands import add_skills, find
 find_app = typer.Typer(add_completion=False)
 
 
-@find_app.command()
-def find_command(
+@find_app.callback(invoke_without_command=True)
+def find_callback(
     ctx: typer.Context,
     keyword: Optional[str] = typer.Argument(None),
 ) -> None:
@@ -23,12 +23,7 @@ def find_command(
 
 
 # Main app for adding skills
-main_app = typer.Typer(
-    add_completion=False,
-    no_args_is_help=True,
-    help="A tool for managing AI agent Skills.",
-    epilog="Commands:\n  find  Search for Skills in the curated registry",
-)
+main_app = typer.Typer(add_completion=False)
 
 
 @main_app.command(

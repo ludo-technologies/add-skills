@@ -11,10 +11,10 @@ from rich.table import Table
 
 from add_skills.cli_utils import exit_with_error
 from add_skills.core import get_agent
+from add_skills.core.source_parser import parse_source
 from add_skills.exceptions import InstallError, SourceParseError
 from add_skills.models import InstallScope, SourceType
 from add_skills.repositories import clone_repo, discover_skills
-from add_skills.core.source_parser import parse_source
 from add_skills.services import install_skill
 
 
