@@ -9,7 +9,7 @@ from rich.console import Console
 from rich.table import Table
 
 from add_skills.cli_utils import exit_with_error
-from add_skills.core import AGENTS, get_agent
+from add_skills.core import get_agent
 from add_skills.core.source_parser import parse_source
 from add_skills.exceptions import InstallError, SourceParseError
 from add_skills.models import InstallScope, SourceType
@@ -17,51 +17,16 @@ from add_skills.repositories import clone_repo, discover_skills
 from add_skills.services import install_skill
 
 
-def add(
+def add_skills(
     ctx: typer.Context,
-    source: str = typer.Argument(
-        ...,
-        help="Source to add Skills from (local path, owner/repo, or URL)",
-    ),
-    global_install: bool = typer.Option(
-        False,
-        "--global",
-        "-g",
-        help="Install globally (default: local to project)",
-    ),
-    agent: str = typer.Option(
-        "claude-code",
-        "--agent",
-        "-a",
-        help=f"Target agent ({', '.join(AGENTS.keys())})",
-    ),
-    skill_name: str = typer.Option(
-        None,
-        "--skill",
-        "-s",
-        help="Install specific skill by name",
-    ),
-    list_only: bool = typer.Option(
-        False,
-        "--list",
-        "-l",
-        help="List available Skills without installing",
-    ),
-    yes: bool = typer.Option(
-        False,
-        "--yes",
-        "-y",
-        help="Skip confirmation prompt",
-    ),
+    source: str,
+    global_install: bool = False,
+    agent: str = "claude-code",
+    skill_name: str | None = None,
+    list_only: bool = False,
+    yes: bool = False,
 ) -> None:
-    """Install Skills from a source.
-
-    Examples:
-        add-skills ./my-skills
-        add-skills vercel-labs/skills
-        add-skills https://github.com/owner/repo
-        add-skills owner/repo -g -a cursor
-    """
+    """Install Skills from a source."""
     console: Console = ctx.obj
 
     # Validate agent
