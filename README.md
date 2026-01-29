@@ -1,6 +1,6 @@
 # add-skills
 
-A CLI tool for managing AI coding agent skills. Install skills from local paths or GitHub/GitLab repositories.
+A Python-based CLI for managing AI agent skills. Install skills from local paths or GitHub/GitLab repositories.
 
 ## Installation
 
