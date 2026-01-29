@@ -17,9 +17,9 @@ def find(
         help="Keyword to search for in skill names, descriptions, and tags.",
     ),
 ) -> None:
-    """Search for skills in the curated registry.
+    """Search for Skills in the curated registry.
 
-    If no keyword is provided, lists all available skills.
+    If no keyword is provided, lists all available Skills.
     """
     console: Console = ctx.obj
 
@@ -34,9 +34,9 @@ def find(
 
     if not results:
         if keyword:
-            console.print(f"No skills found matching '{keyword}'.")
+            console.print(f"No Skills found matching '{keyword}'.")
         else:
-            console.print("No skills found in registry.")
+            console.print("No Skills found in registry.")
         return
 
     table = Table(title="Available Skills" if not keyword else f"Skills matching '{keyword}'")
