@@ -121,10 +121,10 @@ def _display_skills(console: Console, skills: list) -> None:
     table = Table(title="Available Skills")
     table.add_column("Name", style="cyan")
     table.add_column("Description")
-    table.add_column("Globs", style="dim")
+    table.add_column("Paths", style="dim")
 
     for skill in skills:
-        globs = ", ".join(skill.globs) if skill.globs else "-"
-        table.add_row(skill.name, skill.description or "-", globs)
+        paths = ", ".join(skill.paths) if skill.paths else "-"
+        table.add_row(skill.name, skill.description or "-", paths)
 
     console.print(table)
