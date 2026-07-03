@@ -74,7 +74,8 @@ def parse_skill(skill_dir: Path) -> Skill | None:
         name=_parse_string(post.get("name"), skill_dir.name),
         path=skill_dir.resolve(),
         description=_parse_string(post.get("description")),
-        globs=_parse_string_list(post.get("globs")),
+        # "paths" is the official Agent Skills field; "globs" is the legacy name
+        paths=_parse_string_list(post.get("paths") or post.get("globs")),
         agents=_parse_string_list(post.get("agents")),
         metadata=dict(post.metadata),
     )

@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+- Read the `paths` frontmatter field (official Agent Skills spec) with fallback to the legacy `globs` field
+- Rename `Skill.globs` model field to `Skill.paths` and the list column "Globs" to "Paths"
+
 ## [0.1.2] - 2026-01-29
 
 ### Changed

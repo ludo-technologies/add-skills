@@ -65,7 +65,7 @@ class Skill:
     name: str
     path: Path
     description: str = ""
-    globs: list[str] = field(default_factory=list)
+    paths: list[str] = field(default_factory=list)
     agents: list[str] = field(default_factory=list)
     metadata: dict[str, Any] = field(default_factory=dict)
 
